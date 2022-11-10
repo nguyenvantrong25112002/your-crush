@@ -1,5 +1,4 @@
-// Author: Hoang Tran (https://www.facebook.com/profile.php?id=100004848287494)
-// Github verson (1 file .html): https://github.com/HoangTran0410/3DCarousel/blob/master/index.html
+
 
 // You can change global variables here:
 var radius = 240; // how big of the radius
@@ -18,28 +17,23 @@ $(document).ready(function () {
             var bgMusicControls = true; // Show UI music control
             if (bgMusicURL) {
                 var _html = /*html*/ `
-                    <audio autoplay loop  ${bgMusicControls ? "controls" : ""} >
-                        <source src="${bgMusicURL}" type="audio/ogg">
-                        <source src="${bgMusicURL}" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
+                   
+                <audio id="audio" hidden loop   >
+                    <source src="${bgMusicURL}" type="audio/ogg">
+                    <source src="${bgMusicURL}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
                 `;
                 $('#music-container').html(_html);
+                setTimeout(() => {
+                    $('#music-container audio#audio').trigger("play");
+                }, 1000);
             }
         }
     }
     app.backgroundMusic()
 });
-/*
-     NOTE:
-       + imgWidth, imgHeight will work for video
-       + if imgWidth, imgHeight too small, play/pause button in <video> will be hidden
-       + Music link are taken from: https://hoangtran0410.github.io/Visualyze-design-your-own-/?theme=HauMaster&playlist=1&song=1&background=28
-       + Custom from code in tiktok video  https://www.facebook.com/J2TEAM.ManhTuan/videos/1353367338135935/
-*/
 
-// ===================== start =======================
-// animation start after 1000 miliseconds
 setTimeout(init, 1000);
 
 var odrag = document.getElementById("drag-container");
