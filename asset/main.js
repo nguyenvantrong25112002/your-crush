@@ -9,10 +9,27 @@ var imgWidth = 120; // width of images (unit: px)
 var imgHeight = 170; // height of images (unit: px)
 
 // Link of background music - set 'null' if you dont want to play background music
-var bgMusicURL =
-    "https://soundcloud.com/ph-tr-ng-162595090/tinh-yeu-khung-long-remix-fay?si=eb682fa8a0d747329d1885025dfc4d29&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing";
-var bgMusicControls = true; // Show UI music control
+// add background music
+$(document).ready(function () {
+    const app = {
+        backgroundMusic: function () {
 
+            var bgMusicURL = "./audio2.mp3";
+            var bgMusicControls = true; // Show UI music control
+            if (bgMusicURL) {
+                var _html = /*html*/ `
+                    <audio autoplay loop  ${bgMusicControls ? "controls" : ""} >
+                        <source src="${bgMusicURL}" type="audio/ogg">
+                        <source src="${bgMusicURL}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                `;
+                $('#music-container').html(_html);
+            }
+        }
+    }
+    app.backgroundMusic()
+});
 /*
      NOTE:
        + imgWidth, imgHeight will work for video
@@ -83,15 +100,7 @@ if (autoRotate) {
     )}s infinite linear`;
 }
 
-// add background music
-if (bgMusicURL) {
-    document.getElementById("music-container").innerHTML += `
-<audio src="${bgMusicURL}" ${bgMusicControls ? "controls" : ""
-        } autoplay loop>    
-<p>If you are reading this, it is because your browser does not support the audio element.</p>
-</audio>
-`;
-}
+
 
 // setup events
 document.onpointerdown = function (e) {
