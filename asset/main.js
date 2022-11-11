@@ -4,36 +4,47 @@
 var radius = 240; // how big of the radius
 var autoRotate = true; // auto rotate or not
 var rotateSpeed = -60; // unit: seconds/360 degrees
-var imgWidth = 120; // width of images (unit: px)
-var imgHeight = 170; // height of images (unit: px)
+var imgWidth = 100; // width of images (unit: px)
+var imgHeight = 100; // height of images (unit: px)
 
 // Link of background music - set 'null' if you dont want to play background music
 // add background music
-$(document).ready(function () {
-    const app = {
-        backgroundMusic: function () {
+const app = {
+    backgroundMusic: function () {
 
-            var bgMusicURL = "./audio2.mp3";
-            var bgMusicControls = true; // Show UI music control
-            if (bgMusicURL) {
-                var _html = /*html*/ `
-                   
-                <audio id="audio" hidden loop   >
-                    <source src="${bgMusicURL}" type="audio/ogg">
-                    <source src="${bgMusicURL}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                `;
-                $('#music-container').html(_html);
-                setTimeout(() => {
-                    $('#music-container audio#audio').trigger("play");
-                }, 1000);
-            }
+        var bgMusicURL = "./audio2.mp3";
+        var bgMusicControls = true; // Show UI music control
+        if (bgMusicURL) {
+            var _html = /*html*/ `
+                <audio id="audio" autoplay="autoplay" loop="loop"  hidden   preload="none" controls  >
+                    <embed height="50" width="100" src="${bgMusicURL}">
+                        <source src="${bgMusicURL}" type="audio/mp3">
+                        <source src="${bgMusicURL}" type="audio/ogg">
+                        <source src="${bgMusicURL}" type="audio/mpeg">
+                  </audio>
+            `;
+            $('#music-container').html(_html);
+            setTimeout(() => {
+                // $('#music-container audio#audio').trigger("play");
+                var audio = document.getElementById("audio");
+                audio.src = URL.createObjectURL(bgMusicURL);
+                audio.load();
+                audio.play();
+                // x.trigger("play");
+            }, 1500);
         }
     }
-    app.backgroundMusic()
-});
+}
+app.backgroundMusic()
 
+// $(document).ready(function () {
+//     $('#music-container audio#audio').get(0).play();
+// });
+// $(window).load(function () {
+//     setTimeout(() => {
+//         $('#music-container audio#audio').trigger("play");
+//     }, 1000);
+// });
 setTimeout(init, 1000);
 
 var odrag = document.getElementById("drag-container");
